@@ -47,7 +47,9 @@ function Before() {
     >
       {page === undefined && (
         <>
-          <Heading>Welcome to Todo App</Heading>
+          <Heading fontSize="2xl" mb={2}>
+            Welcome to Todo App
+          </Heading>
           {status === "stall" && (
             <Button
               onClick={() => {
@@ -134,7 +136,10 @@ function After() {
     },
   }));
 
+  const transitionRef = useSpringRef();
+
   const transition = useTransition(tasks, {
+    ref: transitionRef,
     trail: 1000 / tasks.length,
     from: { opacity: 0, scale: 0 },
     enter: { opacity: 1, scale: 1 },
@@ -146,12 +151,12 @@ function After() {
   const boxShrinkStyle = useSpring({
     ref: boxShrinkRef,
     from: {
-      size: "100%",
+      size: tasks.length > 0 ? "0%" : "100%",
     },
     to: {
-      size: "0%",
+      size: tasks.length > 0 ? "100%" : "0%",
     },
-    onRest: () => setPage("thankyou"),
+    onRest: tasks.length > 0 ? () => {} : () => setPage("thankyou"),
   });
 
   const textRef = useSpringRef();
@@ -170,6 +175,8 @@ function After() {
 
   useChain(tasks.length > 0 ? [] : [boxShrinkRef, textRef], [0, 1]);
 
+  useChain(page === "app" ? [boxShrinkRef, transitionRef] : []);
+
   return (
     <Flex
       alignItems="center"
@@ -181,7 +188,9 @@ function After() {
     >
       {page === undefined && (
         <>
-          <Heading>Welcome to Todo App</Heading>
+          <Heading fontSize="2xl" mb={2}>
+            Welcome to Todo App
+          </Heading>
           {status !== "stall" && (
             <Heading fontSize="lg">
               <animated.span>

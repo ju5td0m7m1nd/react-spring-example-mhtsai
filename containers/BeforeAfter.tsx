@@ -1,14 +1,14 @@
 import { Container, Flex, Heading } from "@chakra-ui/layout";
-import { Box } from "@chakra-ui/react";
+import { Badge, Box } from "@chakra-ui/react";
 import React from "react";
 
 function BeforeAfter({ before, after, title }: any) {
   return (
     <Box maxWidth="1280px" mx="auto" h="100vh" p={8} bg="bisque">
-      <Heading fontSize="2xl" textAlign="center">
+      <Heading fontSize="4xl" textAlign="center">
         {title}
       </Heading>
-      <Flex h="lg" mt={8}>
+      <Flex h="lg" mt={16}>
         <Flex
           width="49%"
           mx="auto"
@@ -18,7 +18,18 @@ function BeforeAfter({ before, after, title }: any) {
           alignItems="center"
           justifyContent="center"
           flexDir="column"
+          pos="relative"
         >
+          <Badge
+            pos="absolute"
+            top={0}
+            left={0}
+            fontSize="md"
+            colorScheme="purple"
+            zIndex={2}
+          >
+            Without react-spring
+          </Badge>
           {before}
         </Flex>
         <Flex
@@ -30,7 +41,18 @@ function BeforeAfter({ before, after, title }: any) {
           alignItems="center"
           justifyContent="center"
           flexDir="column"
+          pos="relative"
         >
+          <Badge
+            pos="absolute"
+            top={0}
+            left={0}
+            fontSize="md"
+            colorScheme="purple"
+            zIndex={2}
+          >
+            With react-spring
+          </Badge>
           {after}
         </Flex>
       </Flex>
